@@ -11,7 +11,22 @@ class Middlewares extends Config {
     if (!userExist) {
       throw AlfredException(401, appUtils.generateErrorResMap("Kullanıcı Bulunamadı1"));
     }
+  }
 
-    //throw AlfredException(401, {'message': 'authentication failed'});
+  FutureOr authenticationMiddleware(HttpRequest req, HttpResponse res) async {
+    final token = req.headers.value('authorization');
+    int? status;
+    if (token != null) {
+      print("TOKEN: $token");
+      status = jwtAuth.jwtVerify(token.substring(7));
+    }
+    if (status != null) {
+      switch (status) {
+        case 2:
+          throw AlfredException(401, appUtils.generateJwtExpired("expired"));
+        case 3:
+          throw AlfredException(401, appUtils.generateJwtExpired("Token Failed!"));
+      }
+    }
   }
 }

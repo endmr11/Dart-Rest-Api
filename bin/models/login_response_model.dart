@@ -6,13 +6,14 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 class LoginResponse {
   LoginResponse({
+    this.id,
     this.name,
     this.surname,
     this.email,
     this.token,
     this.userGroup,
   });
-
+  int? id;
   String? name;
   String? surname;
   String? email;
@@ -20,6 +21,7 @@ class LoginResponse {
   int? userGroup;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
+        id: json["id"],
         name: json["name"],
         surname: json["surname"],
         email: json["email"],
@@ -28,6 +30,7 @@ class LoginResponse {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "surname": surname,
         "email": email,

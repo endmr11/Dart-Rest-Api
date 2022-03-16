@@ -16,6 +16,8 @@ void main() async {
 
   app.post('/login', controllers.loginController, middleware: [middlewares.loginVerify]);
 
+  app.get('/allOrders',controllers.allOrdersController,middleware: [middlewares.authenticationMiddleware]);
+
   await app.listen(8080);
 }
 

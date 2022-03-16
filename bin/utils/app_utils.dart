@@ -17,4 +17,14 @@ class AppUtils {
 
     return responseMap;
   }
+
+    Map<String, dynamic> generateJwtExpired(dynamic data) {
+    final responseMap = {
+      'message': 'Token Expired',
+      'model': data,
+    };
+
+    return responseMap;
+  }
+  
 }

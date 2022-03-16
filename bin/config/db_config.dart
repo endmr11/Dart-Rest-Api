@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:postgres/postgres.dart';
 
@@ -11,7 +10,7 @@ class DbConfig {
 
       return true;
     } catch (e) {
-      log(e.toString(), name: "DB EXCEPTION");
+      print("DB EXCEPTION: ${e.toString()}");
       return false;
     }
   }
@@ -23,6 +22,16 @@ class DbConfig {
       return results.first.first == password ? true : false;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<List<dynamic>>> getUserInfo(String email) async {
+    try {
+      List<List<dynamic>> results =
+          await connection!.query("SELECT * FROM users WHERE user_email = @userEmailValue", substitutionValues: {"userEmailValue": email});
+      return results;
+    } catch (e) {
+      return [];
     }
   }
 }
