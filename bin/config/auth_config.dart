@@ -1,10 +1,8 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
-import '../utils/app_utils.dart';
-
 class AuthConfig {
   JWT? jwt;
-  final appUtils = AppUtils();
+
   final String secretKey = "eren34demir";
 
   JWT get myJwt => jwt!;

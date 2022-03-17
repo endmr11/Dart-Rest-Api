@@ -1,9 +1,9 @@
-import '../utils/app_utils.dart';
+import '../utils/response_handler.dart';
 import 'auth_config.dart';
 import 'db_config.dart';
 
-abstract class Config {
-  final appUtils = AppUtils();
+abstract class Config extends ResponseHandler {
+
   final dbConfig = DbConfig();
   final jwtAuth = AuthConfig();
 }

@@ -12,21 +12,21 @@ void main() async {
   final controllers = Controllers();
   final dbConfig = DbConfig();
   var dbConnection = await dbConfig.initDb();
-  if (!dbConnection) app.close();
-
   //LOGIN
-  app.post('/login', controllers.loginController, middleware: [middlewares.loginVerify]);
+  app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
   //ORDERS
-  app.get('/all-orders', controllers.allOrdersController, middleware: [middlewares.authenticationMiddleware]);
-  app.get('/order/:id', controllers.orderController, middleware: [middlewares.authenticationMiddleware]);
-  app.post('/order-edit/:id', controllers.orderEditController, middleware: [middlewares.authenticationMiddleware]);
-  app.get('/order-delete/:id', controllers.orderDeleteController, middleware: [middlewares.authenticationMiddleware]);
-  app.post('/order-create', controllers.orderCreateController, middleware: [middlewares.authenticationMiddleware]);
+  app.all('/orders/*', (req, res) => null, middleware: [middlewares.authMiddlewares.authenticationMiddleware]);
+  app.get('/orders/all-orders', controllers.ordersControllers.allOrdersController);
+  app.get('/orders/order/:id', controllers.ordersControllers.orderController);
+  app.post('/orders/order-edit/:id', controllers.ordersControllers.orderEditController);
+  app.get('/orders/order-delete/:id', controllers.ordersControllers.orderDeleteController);
+  app.post('/orders/order-create', controllers.ordersControllers.orderCreateController);
   //PRODUCTS
-  app.get('/all-products', controllers.allProductsController, middleware: [middlewares.authenticationMiddleware]);
-  app.get('/product/:id', controllers.productController, middleware: [middlewares.authenticationMiddleware]);
+  app.all('/products/*', (req, res) => null, middleware: [middlewares.authMiddlewares.authenticationMiddleware]);
+  app.get('/products/all-products', controllers.productControllers.allProductsController);
+  app.get('/products/product/:id', controllers.productControllers.productController);
 
-  await app.listen(8080);
+  if (dbConnection) await app.listen(8080);
 }
 
 FutureOr missingHandler(HttpRequest req, HttpResponse res) {

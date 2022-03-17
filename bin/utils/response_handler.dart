@@ -1,4 +1,4 @@
-class AppUtils {
+abstract class ResponseHandler {
   Map<String, dynamic> generateOkResMap(dynamic data) {
     final responseMap = {
       'status': 200,
@@ -18,13 +18,12 @@ class AppUtils {
     return responseMap;
   }
 
-    Map<String, dynamic> generateJwtExpired(dynamic data) {
+  Map<String, dynamic> generateJwtExpired(dynamic data) {
     final responseMap = {
-      'message': 'Token Expired',
+      'message': 'Token Error!',
       'model': data,
     };
 
     return responseMap;
   }
-  
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:postgres/postgres.dart';
 
 class DbConfig {
@@ -36,7 +38,7 @@ class DbConfig {
     }
   }
 
-  Future<List<List<dynamic>>> testDb() async {
+  Future<List<List<dynamic>>> getAllOrders() async {
     try {
       List<List<dynamic>> results = await connection!.query("SELECT * FROM orders");
 
@@ -45,6 +47,40 @@ class DbConfig {
       return [
         [e.toString()]
       ];
+    }
+  }
+
+  Future<List<List<dynamic>>> getOrder(String orderId) async {
+    try {
+      List<List<dynamic>> results = await connection!.query("SELECT * FROM orders WHERE order_id = @orderId", substitutionValues: {"orderId": orderId});
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
+    }
+  }
+
+  Future<bool> editOrder(String orderId, Map<String, dynamic> body) async {
+    try {
+      int results = await connection!.execute("UPDATE orders SET products = @productsVal WHERE order_id = @orderId",
+          substitutionValues: {"orderId": orderId, "productsVal": jsonEncode(body['products'])});
+      return (results == 1) ? true : false;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> createOrder(Map<String, dynamic> body) async {
+    try {
+      var nBody = jsonEncode(body['products']);
+      var nBodyVal = nBody.toString().replaceAll('[', '').replaceAll(']', '');
+      int results = await connection!.execute("INSERT INTO orders(order_id,user_id, products) VALUES (DEFAULT,${body['user_id']}, '[$nBodyVal]')");
+      return (results == 1) ? true : false;
+    } catch (e) {
+      print(e.toString());
+      return false;
     }
   }
 }
