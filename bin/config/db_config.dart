@@ -1,4 +1,3 @@
-
 import 'package:postgres/postgres.dart';
 
 class DbConfig {
@@ -31,7 +30,21 @@ class DbConfig {
           await connection!.query("SELECT * FROM users WHERE user_email = @userEmailValue", substitutionValues: {"userEmailValue": email});
       return results;
     } catch (e) {
-      return [];
+      return [
+        [e.toString()]
+      ];
+    }
+  }
+
+  Future<List<List<dynamic>>> testDb() async {
+    try {
+      List<List<dynamic>> results = await connection!.query("SELECT * FROM orders");
+
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
     }
   }
 }
