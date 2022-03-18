@@ -123,4 +123,15 @@ class DbConfig {
       ];
     }
   }
+
+  Future<List<List<dynamic>>> getUser(String userId) async {
+    try {
+      List<List<dynamic>> results = await connection!.query("SELECT * FROM users WHERE user_id = @userId", substitutionValues: {"userId": userId});
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
+    }
+  }
 }

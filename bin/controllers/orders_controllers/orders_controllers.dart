@@ -13,7 +13,7 @@ class OrdersControllers extends Config {
       Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/all-orders", model);
+    final responseMap = generateOkResMap("/orders/all-orders", model);
     res.send(jsonEncode(responseMap));
   }
 
@@ -27,10 +27,10 @@ class OrdersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/order/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/order/$orderId", "Order Error");
+      final responseMap = generateErrorResMap("/orders/order/$orderId", "Order Error");
       res.send(jsonEncode(responseMap));
     }
   }
@@ -46,10 +46,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.createOrderSend(model);
-      final responseMap = generateOkResMap("/order-create", model);
+      final responseMap = generateOkResMap("/orders/order-create", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/order-create", "Create Error");
+      final responseMap = generateErrorResMap("/orders/order-create", "Create Error");
       res.send(jsonEncode(responseMap));
     }
   }
@@ -66,10 +66,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.updateOrderSend(model);
-      final responseMap = generateOkResMap("/order-update/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/order-update/$orderId", "Update Error");
+      final responseMap = generateErrorResMap("/orders/order-update/$orderId", "Update Error");
       res.send(jsonEncode(responseMap));
     }
   }
@@ -85,10 +85,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.deleteOrderSend(model);
-      final responseMap = generateOkResMap("/order-update/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/order-update/$orderId", "Delete Error");
+      final responseMap = generateErrorResMap("/orders/order-update/$orderId", "Delete Error");
       res.send(jsonEncode(responseMap));
     }
   }

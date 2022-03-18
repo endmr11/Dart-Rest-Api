@@ -16,7 +16,6 @@ void main() async {
   var dbConnection = await dbConfig.initDb();
   await socketConfig.initSocket();
 
-
   //LOGIN
   app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
   //ORDERS
@@ -32,6 +31,9 @@ void main() async {
   app.get('/products/all-products', controllers.productControllers.allProductsController);
   app.get('/products/product/:id', controllers.productControllers.productController);
 
+  //USER
+  app.all('/users/*', (req, res) => null, middleware: [middlewares.authMiddlewares.authenticationMiddleware]);
+  app.get('/users/user/:id', controllers.userControllers.userController);
   if (dbConnection) await app.listen(8080);
 }
 

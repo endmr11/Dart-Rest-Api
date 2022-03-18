@@ -13,7 +13,7 @@ class ProductControllers extends Config {
       Map<String, dynamic> modelMap = {'product_id': element[0], 'product_name': element[1], 'product_desc': element[2], 'product_price': element[3]};
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/all-products", model);
+    final responseMap = generateOkResMap("/products/all-products", model);
     res.send(jsonEncode(responseMap));
   }
 
@@ -27,10 +27,10 @@ class ProductControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/product/$productId", model);
+      final responseMap = generateOkResMap("/products/product/$productId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/product/$productId", "Product Error");
+      final responseMap = generateErrorResMap("/products/product/$productId", "Product Error");
       res.send(jsonEncode(responseMap));
     }
   }
