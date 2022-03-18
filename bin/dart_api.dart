@@ -14,7 +14,8 @@ void main() async {
   final dbConfig = DbConfig();
   final socketConfig = SocketConfig();
   var dbConnection = await dbConfig.initDb();
-  var socketConnection = await socketConfig.initSocket();
+  await socketConfig.initSocket();
+
 
   //LOGIN
   app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
@@ -31,7 +32,7 @@ void main() async {
   app.get('/products/all-products', controllers.productControllers.allProductsController);
   app.get('/products/product/:id', controllers.productControllers.productController);
 
-  if (dbConnection && socketConnection) await app.listen(8080);
+  if (dbConnection) await app.listen(8080);
 }
 
 FutureOr missingHandler(HttpRequest req, HttpResponse res) {
