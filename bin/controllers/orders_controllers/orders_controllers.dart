@@ -47,24 +47,19 @@ class OrdersControllers extends Config {
     print("Controller: orderEditController start");
     final orderId = req.params['id'];
     final body = await req.bodyAsJsonMap;
-    final success = await dbConfig.editOrder(orderId, body);
-    if (success) {
-      final response = await dbConfig.getOrder(orderId);
-      List<Map<String, dynamic>> model = [];
-      for (final element in response) {
-        Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
-        model.add(modelMap);
-      }
-      final responseMap = generateOkResMap(model);
-      res.send(jsonEncode(responseMap));
-    } else {
-      final responseMap = generateErrorResMap("Edit Error");
-      res.send(jsonEncode(responseMap));
+    final response = await dbConfig.editOrder(orderId, body);
+    List<Map<String, dynamic>> model = [];
+    for (final element in response) {
+      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      model.add(modelMap);
     }
+    final responseMap = generateOkResMap(model);
+    res.send(jsonEncode(responseMap));
   }
 
   orderDeleteController(HttpRequest req, HttpResponse res) async {
     print("Controller: orderDeleteController start");
     final orderId = req.params['id'];
+    print(orderId);
   }
 }

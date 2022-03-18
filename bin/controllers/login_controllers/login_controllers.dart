@@ -23,7 +23,7 @@ class LoginControllers extends Config {
           "surname": element[2],
           "email": element[3],
           "token": token,
-          "userGroup": element[5],
+          "user_group": element[5],
         };
         model.add(modelMap);
       }
