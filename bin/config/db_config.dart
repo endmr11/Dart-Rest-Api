@@ -86,13 +86,15 @@ class DbConfig {
     }
   }
 
-  Future<bool> deleteOrder(String id) async {
+  Future<List<List<dynamic>>> deleteOrder(String orderId) async {
     try {
-      int results = await connection!.execute("DELETE FROM links WHERE order_id = $id");
-      return (results == 1) ? true : false;
+      List<List<dynamic>> results =
+          await connection!.query("DELETE FROM orders WHERE order_id = @orderId  RETURNING *;", substitutionValues: {"orderId": orderId});
+      return results;
     } catch (e) {
-      print(e.toString());
-      return false;
+      return [
+        [e.toString()]
+      ];
     }
   }
 }

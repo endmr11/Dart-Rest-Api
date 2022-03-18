@@ -28,10 +28,10 @@ class LoginControllers extends Config {
         model.add(modelMap);
       }
 
-      final responseMap = generateOkResMap(model);
+      final responseMap = generateOkResMap("/login", model);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      final responseMap = generateErrorResMap(e.toString());
+      final responseMap = generateErrorResMap("/login", e.toString());
       res.send(jsonEncode(responseMap));
     }
   }
