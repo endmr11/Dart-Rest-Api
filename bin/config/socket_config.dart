@@ -5,26 +5,44 @@ class SocketConfig {
     'transports': ['websocket'],
   });
 
-  Future<void> initSocket() async {
-    socket.onConnect((_) {
-      print('onConnect');
-      socket.emit('isConnected', 'yes');
-    });
-    socket.on('connectionStatus', (_) => print('Result => $_'));
+  Future<bool> initSocket() async {
+    try {
+      socket.onConnect((_) {
+        print('onConnect');
+        socket.emit('isConnected', 'yes');
+      });
+      socket.on('connectionStatus', (_) => print('Result => $_'));
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   Future<void> createOrderSend(dynamic data) async {
-    socket.emit('createOrderSend', data);
-    socket.on('createOrderResponse', (_) => print('Result => $_'));
+    try {
+      socket.emit('createOrderSend', data);
+      socket.on('createOrderResponse', (_) => print('Result => $_'));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> updateOrderSend(dynamic data) async {
-    socket.emit('updateOrderSend', data);
-    socket.on('updateOrderResponse', (_) => print('Result => $_'));
+    try {
+      socket.emit('updateOrderSend', data);
+      socket.on('updateOrderResponse', (_) => print('Result => $_'));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> deleteOrderSend(dynamic data) async {
-    socket.emit('deleteOrderSend', data);
-    socket.on('deleteOrderResponse', (_) => print('Result => $_'));
+    try {
+      socket.emit('deleteOrderSend', data);
+      socket.on('deleteOrderResponse', (_) => print('Result => $_'));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
