@@ -97,4 +97,28 @@ class DbConfig {
       ];
     }
   }
+
+  Future<List<List<dynamic>>> getAllProducts() async {
+    try {
+      List<List<dynamic>> results = await connection!.query("SELECT * FROM products");
+
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
+    }
+  }
+
+  Future<List<List<dynamic>>> getProduct(String productId) async {
+    try {
+      List<List<dynamic>> results =
+          await connection!.query("SELECT * FROM products WHERE product_id = @productId", substitutionValues: {"productId": productId});
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
+    }
+  }
 }

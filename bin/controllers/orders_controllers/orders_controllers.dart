@@ -26,8 +26,13 @@ class OrdersControllers extends Config {
       Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/order/$orderId", model);
-    res.send(jsonEncode(responseMap));
+    if (model.isNotEmpty) {
+      final responseMap = generateOkResMap("/order/$orderId", model);
+      res.send(jsonEncode(responseMap));
+    } else {
+      final responseMap = generateErrorResMap("/order/$orderId", "Order Error");
+      res.send(jsonEncode(responseMap));
+    }
   }
 
   orderCreateController(HttpRequest req, HttpResponse res) async {
