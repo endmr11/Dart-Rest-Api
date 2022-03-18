@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alfred/alfred.dart';
 
 import 'config/db_config.dart';
+import 'config/socket_config.dart';
 import 'controllers/controllers.dart';
 import 'middlewares/middlewares.dart';
 
@@ -11,7 +12,10 @@ void main() async {
   final middlewares = Middlewares();
   final controllers = Controllers();
   final dbConfig = DbConfig();
+  final socketConfig = SocketConfig();
   var dbConnection = await dbConfig.initDb();
+  var socket = await socketConfig.initSocket();
+
   //LOGIN
   app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
   //ORDERS
@@ -19,7 +23,7 @@ void main() async {
   app.get('/orders/all-orders', controllers.ordersControllers.allOrdersController);
   app.get('/orders/order/:id', controllers.ordersControllers.orderController);
   app.post('/orders/order-create', controllers.ordersControllers.orderCreateController);
-  app.put('/orders/order-edit/:id', controllers.ordersControllers.orderEditController);
+  app.put('/orders/order-update/:id', controllers.ordersControllers.orderUpdateController);
   app.get('/orders/order-delete/:id', controllers.ordersControllers.orderDeleteController);
 
   //PRODUCTS
