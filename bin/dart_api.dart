@@ -15,7 +15,6 @@ void main() async {
   final socketConfig = SocketConfig();
   var dbConnection = await dbConfig.initDb();
   var socketConnection = await socketConfig.initSocket();
-  print(socketConnection);
 
   //LOGIN
   app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
