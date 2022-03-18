@@ -1,20 +1,23 @@
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketConfig {
-  static io.Socket socket = io.io('http://localhost:8083', <String, dynamic>{
+  io.Socket socket = io.io('http://localhost:8083', <String, dynamic>{
     'transports': ['websocket'],
   });
 
   Future<bool> initSocket() async {
-    try {
-      socket.onConnect((_) {
-        print('onConnect');
-        socket.emit('isConnected', 'yes');
-      });
-      socket.on('connectionStatus', (_) => print('Result => $_'));
+    if (socket.connected) {
+      try {
+        socket.onConnect((_) {
+          print('onConnect');
+          socket.emit('isConnected', 'yes');
+        });
+        socket.on('connectionStatus', (_) => print('Result => $_'));
+      } catch (e) {
+        print(e.toString());
+      }
       return true;
-    } catch (e) {
-      print(e.toString());
+    } else {
       return false;
     }
   }
