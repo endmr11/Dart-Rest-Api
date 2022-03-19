@@ -24,8 +24,7 @@ class UsersControllers extends Config {
       final responseMap = generateOkResMap("/users/user/$userId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/users/user/$userId", "User Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/users/user/$userId", {"error": "User Error"}));
     }
   }
 }

@@ -23,6 +23,7 @@ abstract class ResponseHandler {
 
   Map<String, dynamic> generateJwtExpired(dynamic data) {
     final responseMap = {
+      'status': 401,
       'message': 'Token Error!',
       'model': data,
     };

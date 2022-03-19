@@ -30,8 +30,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/orders/order/$orderId", "Order Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/orders/order/$orderId", {"error":"Order Error"}));
     }
   }
 
@@ -49,8 +48,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-create", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/orders/order-create", "Create Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/orders/order-create", {"error":"Create Error"}));
     }
   }
 
@@ -69,8 +67,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/orders/order-update/$orderId", "Update Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error":"Update Error"}));
     }
   }
 
@@ -88,8 +85,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/orders/order-update/$orderId", "Delete Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error":"Delete Error"}));
     }
   }
 }

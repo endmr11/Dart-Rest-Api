@@ -31,8 +31,7 @@ class LoginControllers extends Config {
       final responseMap = generateOkResMap("/login", model);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      final responseMap = generateErrorResMap("/login", e.toString());
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/login", {"error": e.toString()}));
     }
   }
 }

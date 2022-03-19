@@ -30,8 +30,7 @@ class ProductControllers extends Config {
       final responseMap = generateOkResMap("/products/product/$productId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      final responseMap = generateErrorResMap("/products/product/$productId", "Product Error");
-      res.send(jsonEncode(responseMap));
+      throw AlfredException(400, generateErrorResMap("/products/product/$productId", {"error":"Product Error"}));
     }
   }
 }
