@@ -1,4 +1,4 @@
-abstract class ResponseHandler {
+mixin ResponseHandler {
   Map<String, dynamic> generateOkResMap(String path, dynamic data) {
     final responseMap = {
       'status': 200,

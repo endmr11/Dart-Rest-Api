@@ -3,7 +3,7 @@ import 'auth_config.dart';
 import 'db_config.dart';
 import 'socket_config.dart';
 
-abstract class Config extends ResponseHandler {
+abstract class Config with ResponseHandler {
 
   final dbConfig = DbConfig();
   final jwtAuth = AuthConfig();
