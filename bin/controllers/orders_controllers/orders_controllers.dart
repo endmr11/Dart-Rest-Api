@@ -10,7 +10,13 @@ class OrdersControllers extends Config {
     final response = await dbConfig.getAllOrders();
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4]
+      };
       model.add(modelMap);
     }
     final responseMap = generateOkResMap("/orders/all-orders", model);
@@ -23,14 +29,20 @@ class OrdersControllers extends Config {
     final response = await dbConfig.getOrder(orderId);
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4]
+      };
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
       final responseMap = generateOkResMap("/orders/order/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order/$orderId", {"error":"Order Error"}));
+      throw AlfredException(400, generateErrorResMap("/orders/order/$orderId", {"error": "Order Error"}));
     }
   }
 
@@ -40,7 +52,13 @@ class OrdersControllers extends Config {
     final response = await dbConfig.createOrder(body);
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4]
+      };
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
@@ -48,7 +66,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-create", model);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-create", {"error":"Create Error"}));
+      throw AlfredException(400, generateErrorResMap("/orders/order-create", {"error": "Create Error"}));
     }
   }
 
@@ -59,7 +77,13 @@ class OrdersControllers extends Config {
     final response = await dbConfig.updateOrder(orderId, body);
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4]
+      };
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
@@ -67,7 +91,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error":"Update Error"}));
+      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error": "Update Error"}));
     }
   }
 
@@ -77,7 +101,13 @@ class OrdersControllers extends Config {
     final response = await dbConfig.deleteOrder(orderId);
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'order_id': element[0], 'user_id': element[1], 'products': element[2]};
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4]
+      };
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
@@ -85,7 +115,7 @@ class OrdersControllers extends Config {
       final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error":"Delete Error"}));
+      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error": "Delete Error"}));
     }
   }
 }
