@@ -11,7 +11,7 @@ class LoginControllers extends Config {
     final body = await req.bodyAsJsonMap;
     try {
       jwtAuth.setJwtPayload(body['email']);
-      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(minutes: 3));
+      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(days: 1));
       List<Map<String, dynamic>> model = [];
       Map<String, dynamic> modelMap = {
         "token": token,
@@ -30,7 +30,7 @@ class LoginControllers extends Config {
 
     try {
       jwtAuth.setJwtPayload(body['email']);
-      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(minutes: 3));
+      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(days: 1));
       final userInfo = await dbConfig.getUserInfo(body['email']);
       List<Map<String, dynamic>> model = [];
 
