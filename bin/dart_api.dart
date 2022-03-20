@@ -18,6 +18,7 @@ void main() async {
 
   //LOGIN
   app.post('/login', controllers.loginControllers.loginController, middleware: [middlewares.loginMiddlewares.loginVerify]);
+  app.post('/refresh/token', controllers.loginControllers.refreshController);
   //ORDERS
   app.all('/orders/*', (req, res) => null, middleware: [middlewares.authMiddlewares.authenticationMiddleware]);
   app.get('/orders/all-orders', controllers.ordersControllers.allOrdersController);

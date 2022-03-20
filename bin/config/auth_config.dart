@@ -6,8 +6,8 @@ class AuthConfig {
   final String secretKey = "eren34demir";
 
   JWT get myJwt => jwt!;
-  void setJwtPayload(String email, String password) {
-    jwt = JWT({'sub': 'login', 'email': email, 'password': password, 'iss': 'http://localhost:8080'});
+  void setJwtPayload(String email) {
+    jwt = JWT({'sub': 'login', 'email': email, 'iss': 'http://localhost:8080'});
   }
 
   int jwtVerify(String token) {
