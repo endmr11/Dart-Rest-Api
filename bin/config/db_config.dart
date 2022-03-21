@@ -79,7 +79,7 @@ class DbConfig {
       var nBody = jsonEncode(body['products']);
       var nBodyVal = nBody.toString().replaceAll('[', '').replaceAll(']', '');
       List<List<dynamic>> results =
-          await connection!.query("INSERT INTO orders(order_id,user_id, products) VALUES (DEFAULT,${body['user_id']}, '[$nBodyVal]')   RETURNING *;");
+          await connection!.query("INSERT INTO orders(order_id,user_id,products,user_name,user_surname) VALUES (DEFAULT,${body['user_id']}, '[$nBodyVal]','${body['user_name']}','${body['user_surname']}')  RETURNING *;");
       return results;
     } catch (e) {
       return [
