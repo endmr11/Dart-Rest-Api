@@ -15,7 +15,8 @@ class OrdersControllers extends Config {
         'user_id': element[1],
         'products': element[2],
         'user_name': element[3],
-        'user_surname': element[4]
+        'user_surname': element[4],
+        'order_status':element[5]
       };
       model.add(modelMap);
     }
@@ -34,7 +35,8 @@ class OrdersControllers extends Config {
         'user_id': element[1],
         'products': element[2],
         'user_name': element[3],
-        'user_surname': element[4]
+        'user_surname': element[4],
+        'order_status':element[5]
       };
       model.add(modelMap);
     }
@@ -57,7 +59,8 @@ class OrdersControllers extends Config {
         'user_id': element[1],
         'products': element[2],
         'user_name': element[3],
-        'user_surname': element[4]
+        'user_surname': element[4],
+        'order_status':element[5]
       };
       model.add(modelMap);
     }
@@ -82,7 +85,8 @@ class OrdersControllers extends Config {
         'user_id': element[1],
         'products': element[2],
         'user_name': element[3],
-        'user_surname': element[4]
+        'user_surname': element[4],
+        'order_status':element[5]
       };
       model.add(modelMap);
     }
@@ -106,7 +110,8 @@ class OrdersControllers extends Config {
         'user_id': element[1],
         'products': element[2],
         'user_name': element[3],
-        'user_surname': element[4]
+        'user_surname': element[4],
+        'order_status':element[5]
       };
       model.add(modelMap);
     }
