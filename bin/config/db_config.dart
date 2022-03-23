@@ -40,7 +40,7 @@ class DbConfig {
 
   Future<List<List<dynamic>>> getAllOrders() async {
     try {
-      List<List<dynamic>> results = await connection!.query("SELECT * FROM orders");
+      List<List<dynamic>> results = await connection!.query("SELECT * FROM orders ORDER BY order_id DESC");
 
       return results;
     } catch (e) {
@@ -64,8 +64,15 @@ class DbConfig {
   Future<List<List<dynamic>>> updateOrder(String orderId, Map<String, dynamic> body) async {
     try {
       List<List<dynamic>> results = await connection!.query(
-          "UPDATE orders SET user_id = @userId, products = @productsVal WHERE order_id = @orderId  RETURNING *;",
-          substitutionValues: {"orderId": orderId, "userId": body['user_id'], "productsVal": jsonEncode(body['products'])});
+          "UPDATE orders SET user_id = @userId, products = @productsVal,user_name =@userName,user_surname=@userSurname,order_status=@orderStatus WHERE order_id = @orderId  RETURNING *;",
+          substitutionValues: {
+            "orderId": orderId,
+            "userId": body['user_id'],
+            "productsVal": jsonEncode(body['products']),
+            "userName": body['user_name'],
+            "userSurname": body['user_surname'],
+            "orderStatus": body['order_status']
+          });
       return results;
     } catch (e) {
       return [
@@ -78,8 +85,8 @@ class DbConfig {
     try {
       var nBody = jsonEncode(body['products']);
       var nBodyVal = nBody.toString().replaceAll('[', '').replaceAll(']', '');
-      List<List<dynamic>> results =
-          await connection!.query("INSERT INTO orders(order_id,user_id,products,user_name,user_surname,order_status) VALUES (DEFAULT,${body['user_id']}, '[$nBodyVal]','${body['user_name']}','${body['user_surname']}',${body['order_status']})  RETURNING *;");
+      List<List<dynamic>> results = await connection!.query(
+          "INSERT INTO orders(order_id,user_id,products,user_name,user_surname,order_status) VALUES (DEFAULT,${body['user_id']}, '[$nBodyVal]','${body['user_name']}','${body['user_surname']}',${body['order_status']})  RETURNING *;");
       return results;
     } catch (e) {
       return [
