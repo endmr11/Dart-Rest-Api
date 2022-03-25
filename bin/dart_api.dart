@@ -23,6 +23,7 @@ void main() async {
   app.all('/orders/*', (req, res) => null, middleware: [middlewares.authMiddlewares.authenticationMiddleware]);
   app.get('/orders/all-orders', controllers.ordersControllers.allOrdersController);
   app.get('/orders/order/:id', controllers.ordersControllers.orderController);
+  app.get('/orders/my-order/:id',controllers.ordersControllers.myOrderController);
   app.post('/orders/order-create', controllers.ordersControllers.orderCreateController);
   app.put('/orders/order-update/:id', controllers.ordersControllers.orderUpdateController);
   app.get('/orders/order-delete/:id', controllers.ordersControllers.orderDeleteController);

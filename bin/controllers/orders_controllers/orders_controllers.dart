@@ -16,7 +16,7 @@ class OrdersControllers extends Config {
         'products': element[2],
         'user_name': element[3],
         'user_surname': element[4],
-        'order_status':element[5]
+        'order_status': element[5]
       };
       model.add(modelMap);
     }
@@ -36,7 +36,7 @@ class OrdersControllers extends Config {
         'products': element[2],
         'user_name': element[3],
         'user_surname': element[4],
-        'order_status':element[5]
+        'order_status': element[5]
       };
       model.add(modelMap);
     }
@@ -45,6 +45,30 @@ class OrdersControllers extends Config {
       res.send(jsonEncode(responseMap));
     } else {
       throw AlfredException(400, generateErrorResMap("/orders/order/$orderId", {"error": "Order Error"}));
+    }
+  }
+
+  myOrderController(HttpRequest req, HttpResponse res) async {
+    print("Controller: orderController start");
+    final userId = req.params['id'];
+    final response = await dbConfig.getMyOrders(userId);
+    List<Map<String, dynamic>> model = [];
+    for (final element in response) {
+      Map<String, dynamic> modelMap = {
+        'order_id': element[0],
+        'user_id': element[1],
+        'products': element[2],
+        'user_name': element[3],
+        'user_surname': element[4],
+        'order_status': element[5]
+      };
+      model.add(modelMap);
+    }
+    if (model.isNotEmpty) {
+      final responseMap = generateOkResMap("/orders/my-order/$userId", model);
+      res.send(jsonEncode(responseMap));
+    } else {
+      throw AlfredException(400, generateErrorResMap("/orders/my-order/$userId", {"error": "Order Error"}));
     }
   }
 
@@ -60,7 +84,7 @@ class OrdersControllers extends Config {
         'products': element[2],
         'user_name': element[3],
         'user_surname': element[4],
-        'order_status':element[5]
+        'order_status': element[5]
       };
       model.add(modelMap);
     }
@@ -86,7 +110,7 @@ class OrdersControllers extends Config {
         'products': element[2],
         'user_name': element[3],
         'user_surname': element[4],
-        'order_status':element[5]
+        'order_status': element[5]
       };
       model.add(modelMap);
     }
@@ -111,7 +135,7 @@ class OrdersControllers extends Config {
         'products': element[2],
         'user_name': element[3],
         'user_surname': element[4],
-        'order_status':element[5]
+        'order_status': element[5]
       };
       model.add(modelMap);
     }

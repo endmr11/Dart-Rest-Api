@@ -50,6 +50,19 @@ class DbConfig {
     }
   }
 
+  Future<List<List<dynamic>>> getMyOrders(String userId) async {
+    try {
+      List<List<dynamic>> results =
+          await connection!.query("SELECT * FROM orders WHERE user_id=@userId ORDER BY order_id DESC", substitutionValues: {"userId": userId});
+
+      return results;
+    } catch (e) {
+      return [
+        [e.toString()]
+      ];
+    }
+  }
+
   Future<List<List<dynamic>>> getOrder(String orderId) async {
     try {
       List<List<dynamic>> results = await connection!.query("SELECT * FROM orders WHERE order_id = @orderId", substitutionValues: {"orderId": orderId});
