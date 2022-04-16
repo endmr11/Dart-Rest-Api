@@ -17,10 +17,10 @@ class LoginControllers extends Config {
         "token": token,
       };
       model.add(modelMap);
-      final responseMap = generateOkResMap("/refresh/token", model);
+      final responseMap = generateOkResMap("/refresh/token", model,true);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      throw AlfredException(400, generateErrorResMap("/refresh/token", {"error": e.toString()}));
+      throw AlfredException(400, generateOkResMap("/refresh/token", {"error": e.toString()},false));
     }
   }
 
@@ -46,10 +46,10 @@ class LoginControllers extends Config {
         model.add(modelMap);
       }
 
-      final responseMap = generateOkResMap("/login", model);
+      final responseMap = generateOkResMap("/login", model,true);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      throw AlfredException(400, generateErrorResMap("/login", {"error": e.toString()}));
+      throw AlfredException(400, generateOkResMap("/login", {"error": e.toString()},false));
     }
   }
 }

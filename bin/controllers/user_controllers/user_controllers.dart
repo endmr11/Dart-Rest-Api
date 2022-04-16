@@ -21,10 +21,10 @@ class UsersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/users/user/$userId", model);
+      final responseMap = generateOkResMap("/users/user/$userId", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/users/user/$userId", {"error": "User Error"}));
+      throw AlfredException(400, generateOkResMap("/users/user/$userId", {"error": "User Error"},false));
     }
   }
 }

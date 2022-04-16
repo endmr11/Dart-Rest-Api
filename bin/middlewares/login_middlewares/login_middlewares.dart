@@ -9,7 +9,7 @@ class LoginMiddlewares extends Config {
     final body = await req.bodyAsJsonMap;
     bool userExist = await dbConfig.userExist(body['email'], body['password']);
     if (!userExist) {
-      throw AlfredException(400, generateErrorResMap("/login", {"error":"Kullanıcı Bulunamadı!"}));
+      throw AlfredException(400, generateOkResMap("/login", {"error": "Kullanıcı Bulunamadı!"}, false));
     }
   }
 }

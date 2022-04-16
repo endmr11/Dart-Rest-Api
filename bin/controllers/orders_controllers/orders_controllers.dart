@@ -20,7 +20,7 @@ class OrdersControllers extends Config {
       };
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/orders/all-orders", model);
+    final responseMap = generateOkResMap("/orders/all-orders", model,true);
     res.send(jsonEncode(responseMap));
   }
 
@@ -41,10 +41,10 @@ class OrdersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/orders/order/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order/$orderId", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order/$orderId", {"error": "Order Error"}));
+      throw AlfredException(400, generateOkResMap("/orders/order/$orderId", {"error": "Order Error"},true));
     }
   }
 
@@ -65,10 +65,10 @@ class OrdersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/orders/my-order/$userId", model);
+      final responseMap = generateOkResMap("/orders/my-order/$userId", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/my-order/$userId", {"error": "Order Error"}));
+      throw AlfredException(400, generateOkResMap("/orders/my-order/$userId", {"error": "Order Error"},false));
     }
   }
 
@@ -90,10 +90,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.createOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-create", model);
+      final responseMap = generateOkResMap("/orders/order-create", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-create", {"error": "Create Error"}));
+      throw AlfredException(400, generateOkResMap("/orders/order-create", {"error": "Create Error"},false));
     }
   }
 
@@ -116,10 +116,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.updateOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error": "Update Error"}));
+      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", {"error": "Update Error"},false));
     }
   }
 
@@ -141,10 +141,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.deleteOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-update/$orderId", model);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", model,true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateErrorResMap("/orders/order-update/$orderId", {"error": "Delete Error"}));
+      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", {"error": "Delete Error"},false));
     }
   }
 }
