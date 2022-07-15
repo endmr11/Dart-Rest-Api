@@ -11,23 +11,22 @@ class LoginControllers extends Config {
     final body = await req.bodyAsJsonMap;
     try {
       jwtAuth.setJwtPayload(body['email']);
-      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(days: 1));
+      final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey));
       List<Map<String, dynamic>> model = [];
       Map<String, dynamic> modelMap = {
         "token": token,
       };
       model.add(modelMap);
-      final responseMap = generateOkResMap("/refresh/token", model,true);
+      final responseMap = generateOkResMap("/refresh/token", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      throw AlfredException(400, generateOkResMap("/refresh/token", {"error": e.toString()},false));
+      throw AlfredException(400, generateOkResMap("/refresh/token", e.toString(), {}, false));
     }
   }
 
   loginController(HttpRequest req, HttpResponse res) async {
     print("Controller: loginController start");
     final body = await req.bodyAsJsonMap;
-
     try {
       jwtAuth.setJwtPayload(body['email']);
       final token = jwtAuth.myJwt.sign(SecretKey(jwtAuth.secretKey), expiresIn: Duration(days: 1));
@@ -46,10 +45,10 @@ class LoginControllers extends Config {
         model.add(modelMap);
       }
 
-      final responseMap = generateOkResMap("/login", model,true);
+      final responseMap = generateOkResMap("/login", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } catch (e) {
-      throw AlfredException(400, generateOkResMap("/login", {"error": e.toString()},false));
+      throw AlfredException(400, generateOkResMap("/login", e.toString(), {}, false));
     }
   }
 }

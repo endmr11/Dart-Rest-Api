@@ -7,7 +7,7 @@ class AuthConfig {
 
   JWT get myJwt => jwt!;
   void setJwtPayload(String email) {
-    jwt = JWT({'sub': 'login', 'email': email, 'iss': 'http://localhost:8080'});
+    jwt = JWT({'email': email, 'iss': 'http://localhost:8080'});
   }
 
   int jwtVerify(String token) {
@@ -15,6 +15,7 @@ class AuthConfig {
       jwt = JWT.verify(token, SecretKey(secretKey));
       return 0;
     } on JWTExpiredError {
+      print("jwt expired");
       return 1;
     } on JWTError catch (ex) {
       print(ex.message);

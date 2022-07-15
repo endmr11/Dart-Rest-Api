@@ -10,10 +10,16 @@ class ProductControllers extends Config {
     final response = await dbConfig.getAllProducts();
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'product_id': element[0], 'product_name': element[1], 'product_desc': element[2], 'product_price': element[3],'product_url': element[4]};
+      Map<String, dynamic> modelMap = {
+        'product_id': element[0],
+        'product_name': element[1],
+        'product_desc': element[2],
+        'product_price': element[3],
+        'product_url': element[4]
+      };
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/products/all-products", model,true);
+    final responseMap = generateOkResMap("/products/all-products", "Success", model, true);
     res.send(jsonEncode(responseMap));
   }
 
@@ -23,14 +29,20 @@ class ProductControllers extends Config {
     final response = await dbConfig.getProduct(productId);
     List<Map<String, dynamic>> model = [];
     for (final element in response) {
-      Map<String, dynamic> modelMap = {'product_id': element[0], 'product_name': element[1], 'product_desc': element[2], 'product_price': element[3],'product_url': element[4]};
+      Map<String, dynamic> modelMap = {
+        'product_id': element[0],
+        'product_name': element[1],
+        'product_desc': element[2],
+        'product_price': element[3],
+        'product_url': element[4]
+      };
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/products/product/$productId", model,true);
+      final responseMap = generateOkResMap("/products/product/$productId", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/products/product/$productId", {"error":"Product Error"},false));
+      throw AlfredException(400, generateOkResMap("/products/product/$productId", "Product Error", {}, false));
     }
   }
 }

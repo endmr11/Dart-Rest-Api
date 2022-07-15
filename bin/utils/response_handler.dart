@@ -1,9 +1,9 @@
 mixin ResponseHandler {
-  Map<String, dynamic> generateOkResMap(String path, dynamic data, bool success) {
+  Map<String, dynamic> generateOkResMap(String path, String message, dynamic data, bool success) {
     if (success) {
       final responseMap = {
         'status': 200,
-        'message': 'success',
+        'message': message,
         'path': path,
         'model': data,
       };
@@ -11,7 +11,7 @@ mixin ResponseHandler {
     } else {
       final responseMap = {
         'status': 400,
-        'message': 'error',
+        'message': message,
         'path': path,
         'model': data,
       };

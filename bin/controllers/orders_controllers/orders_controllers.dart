@@ -20,8 +20,12 @@ class OrdersControllers extends Config {
       };
       model.add(modelMap);
     }
-    final responseMap = generateOkResMap("/orders/all-orders", model,true);
-    res.send(jsonEncode(responseMap));
+    if (model.isNotEmpty) {
+      final responseMap = generateOkResMap("/orders/all-orders", "Success", model, true);
+      res.send(jsonEncode(responseMap));
+    } else {
+      throw AlfredException(400, generateOkResMap("/orders/all-orders", "All Orders Error", {}, true));
+    }
   }
 
   orderController(HttpRequest req, HttpResponse res) async {
@@ -41,10 +45,10 @@ class OrdersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/orders/order/$orderId", model,true);
+      final responseMap = generateOkResMap("/orders/order/$orderId", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/orders/order/$orderId", {"error": "Order Error"},true));
+      throw AlfredException(400, generateOkResMap("/orders/order/$orderId", "Order Error", {}, true));
     }
   }
 
@@ -65,10 +69,10 @@ class OrdersControllers extends Config {
       model.add(modelMap);
     }
     if (model.isNotEmpty) {
-      final responseMap = generateOkResMap("/orders/my-order/$userId", model,true);
+      final responseMap = generateOkResMap("/orders/my-order/$userId", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/orders/my-order/$userId", {"error": "Order Error"},false));
+      throw AlfredException(400, generateOkResMap("/orders/my-order/$userId", "My Order Error", {}, false));
     }
   }
 
@@ -90,10 +94,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.createOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-create", model,true);
+      final responseMap = generateOkResMap("/orders/order-create", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/orders/order-create", {"error": "Create Error"},false));
+      throw AlfredException(400, generateOkResMap("/orders/order-create", "Create Order Error", {}, false));
     }
   }
 
@@ -116,10 +120,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.updateOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-update/$orderId", model,true);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", {"error": "Update Error"},false));
+      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", "Update Error", {}, false));
     }
   }
 
@@ -141,10 +145,10 @@ class OrdersControllers extends Config {
     }
     if (model.isNotEmpty) {
       socketConfig.deleteOrderSend(model);
-      final responseMap = generateOkResMap("/orders/order-update/$orderId", model,true);
+      final responseMap = generateOkResMap("/orders/order-update/$orderId", "Success", model, true);
       res.send(jsonEncode(responseMap));
     } else {
-      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", {"error": "Delete Error"},false));
+      throw AlfredException(400, generateOkResMap("/orders/order-update/$orderId", "Delete Error", {}, false));
     }
   }
 }
